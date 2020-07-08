@@ -1,0 +1,14 @@
+cabal-version:       >=1.10
+
+name:                conway
+version:             0.1.0.0
+author:              JoeSimmonds
+maintainer:          JoeSimmonds@users.noreply.github.com
+build-type:          Simple
+extra-source-files:  CHANGELOG.md
+
+executable conway
+  main-is:             Main.hs
+  build-depends:       gloss == 1.13.1.1, base >=4.13 && <4.14
+  other-modules:       Conway 
+  default-language:    Haskell2010
