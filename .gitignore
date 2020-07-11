@@ -1,4 +1,4 @@
 *.hi
 *.o
 app
-/dist-newstyle
+dist-newstyle

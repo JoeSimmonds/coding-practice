@@ -1,5 +1,7 @@
 module Conway where
 
+blinker = [(10,10), (11,10), (12,10)]
+
 pentaDecathlon = [
     (3,5),(4,5),
     (5,6),(5,4),
@@ -24,6 +26,9 @@ translateCell (a, b) (c, d) = (a+c, b+d)
 
 translate :: [(Integer, Integer)] -> (Integer, Integer) -> [(Integer, Integer)]
 translate cells xform = map (translateCell xform) cells
+
+inverse :: (Integer, Integer) -> (Integer, Integer)
+inverse (x, y) = (-x, -y)
 
 getNeighbours :: (Integer, Integer) -> [(Integer, Integer)]
 getNeighbours (x, y) = [
@@ -75,33 +80,33 @@ buildNewWorldState priorState neighbourcounts = map extractCoords (filter (singl
 step :: [(Integer, Integer)] -> [(Integer, Integer)]
 step priorState = buildNewWorldState priorState (buildNeighbourCounts priorState [])
 
--- tests :: IO ()
--- tests = do 
---     putStrLn (show (findAndIncrement [] (1,2)))
---     putStrLn (show (findAndIncrement [(1,2,10), (3,4,5)] (1, 2)))    
---     putStrLn (show (findAndIncrement [(1,2,10), (3,4,5)] (3, 4)))
---     putStrLn (show (findAndIncrement [(1,2,10), (3,4,5)] (6, 4)))   
---     putStrLn (show (findAllAndIncrement [(1,2,10), (3,4,5)] []))
---     putStrLn (show (findAllAndIncrement [(1,2,10), (3,4,5)] [(1,2)]))
---     putStrLn (show (findAllAndIncrement [(1,2,10), (3,4,5)] [(1,2), (6,7)]))
---     putStrLn (show (buildNeighbourCounts [] []))
---     putStrLn (show (buildNeighbourCounts [(1,5)] []))
---     putStrLn (show (buildNeighbourCounts [(1,5), (2, 5)] []))
---     putStrLn (show (buildNewWorldState [] []))
---     putStrLn (show (isAlive [] (1,2)))
---     putStrLn (show (isAlive [(1,2), (5,4)] (3, 5)))
---     putStrLn (show (isAlive [(1,2), (5,4)] (5, 4)))
---     putStrLn (show (buildNewWorldState [] [(1,1,3)])) -- rule 4
---     putStrLn (show (buildNewWorldState [(1, 1)] [(1,1,1)])) -- rule 1
---     putStrLn (show (buildNewWorldState [(1, 1)] [(1,1,2)])) -- rule 2
---     putStrLn (show (buildNewWorldState [(1, 1)] [(1,1,3)])) -- rule 2
---     putStrLn (show (buildNewWorldState [(1, 1)] [(1,1,4)])) -- rule 3
---     putStrLn (show (step blinker))
---     putStrLn (show (step (step blinker)))
---     putStrLn (show (step (step (step blinker))))
---     putStrLn (show (step (step (step (step blinker)))))
---     putStrLn (show (step (step (step (step (step blinker))))))
---     putStrLn (show (step (step (step (step (step (step blinker)))))))
+tests :: IO ()
+tests = do 
+    putStrLn (show (findAndIncrement [] (1,2)))
+    putStrLn (show (findAndIncrement [(1,2,10), (3,4,5)] (1, 2)))    
+    putStrLn (show (findAndIncrement [(1,2,10), (3,4,5)] (3, 4)))
+    putStrLn (show (findAndIncrement [(1,2,10), (3,4,5)] (6, 4)))   
+    putStrLn (show (findAllAndIncrement [(1,2,10), (3,4,5)] []))
+    putStrLn (show (findAllAndIncrement [(1,2,10), (3,4,5)] [(1,2)]))
+    putStrLn (show (findAllAndIncrement [(1,2,10), (3,4,5)] [(1,2), (6,7)]))
+    putStrLn (show (buildNeighbourCounts [] []))
+    putStrLn (show (buildNeighbourCounts [(1,5)] []))
+    putStrLn (show (buildNeighbourCounts [(1,5), (2, 5)] []))
+    putStrLn (show (buildNewWorldState [] []))
+    putStrLn (show (isAlive [] (1,2)))
+    putStrLn (show (isAlive [(1,2), (5,4)] (3, 5)))
+    putStrLn (show (isAlive [(1,2), (5,4)] (5, 4)))
+    putStrLn (show (buildNewWorldState [] [(1,1,3)])) -- rule 4
+    putStrLn (show (buildNewWorldState [(1, 1)] [(1,1,1)])) -- rule 1
+    putStrLn (show (buildNewWorldState [(1, 1)] [(1,1,2)])) -- rule 2
+    putStrLn (show (buildNewWorldState [(1, 1)] [(1,1,3)])) -- rule 2
+    putStrLn (show (buildNewWorldState [(1, 1)] [(1,1,4)])) -- rule 3
+    putStrLn (show (step blinker))
+    putStrLn (show (step (step blinker)))
+    putStrLn (show (step (step (step blinker))))
+    putStrLn (show (step (step (step (step blinker)))))
+    putStrLn (show (step (step (step (step (step blinker))))))
+    putStrLn (show (step (step (step (step (step (step blinker)))))))
 
     
 

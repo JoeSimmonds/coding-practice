@@ -23,8 +23,10 @@ stepSimulation _ _ state = step state
 
 window = InWindow "Conway" (1000, 1000) (10, 10) 
 
-initialState = gosperGliderGun
+initialState = gosperGliderGun ++ 
+                (Conway.translate gosperGliderGun (40, -40)) ++
+                (Conway.translate blinker (0, 10))
 
 
 main :: IO ()
-main = simulate window white 10 initialState render stepSimulation
+main = simulate window white 20 initialState render stepSimulation
