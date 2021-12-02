@@ -1,0 +1,5 @@
+To run:
+
+```
+ > cabal run
+```
