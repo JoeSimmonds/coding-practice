@@ -7,7 +7,7 @@
 in the `input.txt` file
 
 ## libs
-uses SCMUnit from [[https://github.com/nicholasrussell/scmUnit]]
+uses [SCMUnit](https://github.com/nicholasrussell/scmUnit)
 
 ## Running the code
 ```
