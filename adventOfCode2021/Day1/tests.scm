@@ -1,5 +1,6 @@
 (define-test-suite "Input Reading")
 (define-test-suite "Increase counting")
+(define-test-suite "Smoothed counting")
 
 (define pos-int-gen (lambda () (random 65536)))
 
@@ -15,8 +16,8 @@
     )
 )
 
-(define (pos-int-list-random-length-gen)
-    (lambda () ((pos-int-list-gen (+ 1 (random 256)))))
+(define (pos-int-list-random-length-gen minLength maxLength)
+    (lambda () ((pos-int-list-gen (+ minLength (random (+ 1 (- maxLength minLength)))))))
 )
 
 
@@ -97,12 +98,62 @@
     )
 )
 
-(define-test "a list with the same value prependedgives the same result"
-    (verify-property (pos-int-list-random-length-gen)
+(define-test "a list with the same value prepended gives the same result"
+    (verify-property (pos-int-list-random-length-gen 1 256)
         (lambda (items)
             (assert-equals
                 (count-increases items)
                 (count-increases (cons (car items) items))
+            )
+        )
+    )
+)
+
+(end-test-suite)
+
+(begin-test-suite "Smoothed counting")
+(define-test "lists with fewer than 4 elements return 0"
+    (verify-property (pos-int-list-random-length-gen 0 3)
+        (lambda (items)
+            (assert-equals 0 (count-smoothed-increases items))
+        )
+    )
+)
+
+(define-test "example based tests"
+    (display (count-smoothed-increases (list 10 23 67 45)))
+    (assert-equals 1 (count-smoothed-increases (list 10 23 67 45)))
+    (assert-equals 2 (count-smoothed-increases (list 10 23 67 45 234)))
+)
+
+(define-test "sliding triple examples"
+    (let ((result (sliding-triple (list 12 56 78 9 56))))
+        (display "Actual: ")(display result)(newline)
+        (assert-equals (list
+            (list 12 56 78) 
+            (list 56 78 9) 
+            (list 78 9 56) 
+        ) result)
+    )
+)
+
+(define-test "if the list is sorted ascending retuns the length of the list minus 3"
+    (verify-property (pos-int-list-random-length-gen 0 100)
+        (lambda (items)
+            (assert-equals
+                (max 0 (- (length items) 3))
+                (count-smoothed-increases (sort items <))
+            )
+        )
+    )
+)
+
+(define-test "if the list is sorted ascending retuns the length of the list minus 3"
+    (verify-property (pos-int-list-random-length-gen 0 100)
+        (lambda (items)
+            (assert-equals
+                0
+                (count-smoothed-increases (sort items >=))
             )
         )
     )

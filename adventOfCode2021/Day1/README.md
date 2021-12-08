@@ -1,5 +1,6 @@
 # Advent of code Day 1
 [Coded for MIT/GNU scheme](https://groups.csail.mit.edu/mac/projects/scheme/)
+[Language reference](https://www.gnu.org/software/mit-scheme/documentation/stable/mit-scheme-ref.pdf)
 
 [Day 1 instructions](https://adventofcode.com/2021/day/1)
 
