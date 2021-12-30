@@ -25,7 +25,7 @@ You will see loads of this message which can be ignored :
 ;Warning: Cannot definitively capture errors if standard-error-hook is bound.
 ```
 
-These are an artefact of the tyesting llibrary and I haven't been able to get rid of them, if these are bothersome you can pipe the output through grep like this
+These are an artefact of the testing library and I haven't been able to get rid of them, if these are bothersome you can pipe the output through grep like this
 ```
 scheme --quiet --load "increasing.scm" --eval "(test)" --eval "(exit)" | grep -v -e ';Warning: Cannot definitively capture errors:'
 ```
