@@ -1,0 +1,1 @@
+char* greet(char *buffer, size_t bufsize, char *name);
