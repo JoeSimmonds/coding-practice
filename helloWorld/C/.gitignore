@@ -1,3 +1,8 @@
 *.a
 *.o
 *.out
+CMakeFiles
+cmake_install.cmake
+CMakeCache.txt
+Makefile
+*ConfigVersion.cmake
