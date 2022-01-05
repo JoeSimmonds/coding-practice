@@ -22,10 +22,4 @@ target_link_libraries(HelloWorldSpecs PUBLIC "unity" "HelloWorld")
 # Application
 add_executable(HelloWorldApp "helloWorldApp.c")
 
-
 target_link_libraries(HelloWorldApp PUBLIC "HelloWorld")
-
-target_include_directories(HelloWorldApp PUBLIC 
-                            "${PROJECT_BINARY_DIR}"
-                          )
-
