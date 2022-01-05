@@ -50,6 +50,92 @@ void performCount_increments_the_total_count() {
     cleanUp();
 }
 
+void majorityOnesAtBitPosition_is_false_for_all_positions_when_zeros_have_supplied() {
+    resetCounts(8);
+    performCount(0);
+    for (int idx=0; idx<8; idx++) {
+        char errMsg[256];
+        sprintf(errMsg, "Expected FALSE but was TRUE at bit position %i", idx);
+        TEST_ASSERT_FALSE_MESSAGE(majorityOnesAtBitPosition(idx), errMsg);
+    }
+    cleanUp();
+}
+
+void majorityOnesAtBitPosition_is_true_for_position_0_when_majority_1s_have_been_supplied() {
+    resetCounts(8);
+    performCount(0);
+    performCount(1);
+    performCount(1);
+    TEST_ASSERT_TRUE_MESSAGE(majorityOnesAtBitPosition(0), "Expected TRUE but was FALSE at bit position 0");
+    for (int idx=1; idx<8; idx++) {
+        char errMsg[256];
+        sprintf(errMsg, "Expected FALSE but was TRUE at bit position %i", idx);
+        TEST_ASSERT_FALSE_MESSAGE(majorityOnesAtBitPosition(idx), errMsg);
+    }
+    cleanUp();
+}
+
+void majorityOnesAtBitPosition_is_false_for_position_0_when_minority_1s_have_been_supplied() {
+    resetCounts(8);
+    performCount(0);
+    performCount(0);
+    performCount(1);
+    TEST_ASSERT_FALSE_MESSAGE(majorityOnesAtBitPosition(0), "Expected FALSE but was TRUE at bit position 0");
+    for (int idx=1; idx<8; idx++) {
+        char errMsg[256];
+        sprintf(errMsg, "Expected FALSE but was TRUE at bit position %i", idx);
+        TEST_ASSERT_FALSE_MESSAGE(majorityOnesAtBitPosition(idx), errMsg);
+    }
+    cleanUp();
+}
+
+void doCountsOnExampleData() {
+    performCount(readIntFromTextLine("00100", 5));
+    performCount(readIntFromTextLine("11110", 5));
+    performCount(readIntFromTextLine("10110", 5));
+    performCount(readIntFromTextLine("10111", 5));
+    performCount(readIntFromTextLine("10101", 5));
+    performCount(readIntFromTextLine("01111", 5));
+    performCount(readIntFromTextLine("00111", 5));
+    performCount(readIntFromTextLine("11100", 5));
+    performCount(readIntFromTextLine("10000", 5));
+    performCount(readIntFromTextLine("11001", 5));
+    performCount(readIntFromTextLine("00010", 5));
+    performCount(readIntFromTextLine("01010", 5));
+}
+
+void majorityOnesAtBitPosition_conforms_to_provided_example() {
+    resetCounts(5);
+    doCountsOnExampleData();
+    TEST_ASSERT_TRUE_MESSAGE(majorityOnesAtBitPosition(4), "Expected TRUE but was FALSE at bit position 4");
+    TEST_ASSERT_FALSE_MESSAGE(majorityOnesAtBitPosition(3), "Expected FALSE but was TRUE at bit position 3");
+    TEST_ASSERT_TRUE_MESSAGE(majorityOnesAtBitPosition(2), "Expected TRUE but was FALSE at bit position 2");
+    TEST_ASSERT_TRUE_MESSAGE(majorityOnesAtBitPosition(1), "Expected TRUE but was FALSE at bit position 1");
+    TEST_ASSERT_FALSE_MESSAGE(majorityOnesAtBitPosition(0), "Expected FALSE but was TRUE at bit position 0");
+    cleanUp();
+}
+
+void getGammaRate_conforms_to_provided_example() {
+    resetCounts(5);
+    doCountsOnExampleData();
+    TEST_ASSERT_EQUAL_INT(22, getGammaRate());
+    cleanUp();
+}
+
+void getEpsilonRate_conforms_to_provided_example() {
+    resetCounts(5);
+    doCountsOnExampleData();
+    TEST_ASSERT_EQUAL_INT(9, getEpsilonRate());
+    cleanUp();
+}
+
+void getPowerConsumption_conforms_to_provided_example() {
+    resetCounts(5);
+    doCountsOnExampleData();
+    TEST_ASSERT_EQUAL_INT(198, getPowerConsumption());
+    cleanUp();
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(readIntFromTextLine_reads_zero);
@@ -57,5 +143,12 @@ int main() {
     RUN_TEST(readIntFromTextLine_reads_powers_of_2);
     RUN_TEST(resetCount_sets_totalCountToZero);
     RUN_TEST(performCount_increments_the_total_count);
+    RUN_TEST(majorityOnesAtBitPosition_is_false_for_all_positions_when_zeros_have_supplied);
+    RUN_TEST(majorityOnesAtBitPosition_is_true_for_position_0_when_majority_1s_have_been_supplied);
+    RUN_TEST(majorityOnesAtBitPosition_is_false_for_position_0_when_minority_1s_have_been_supplied);
+    RUN_TEST(majorityOnesAtBitPosition_conforms_to_provided_example);
+    RUN_TEST(getGammaRate_conforms_to_provided_example);
+    RUN_TEST(getEpsilonRate_conforms_to_provided_example);
+    RUN_TEST(getPowerConsumption_conforms_to_provided_example);
     return UNITY_END();
 }

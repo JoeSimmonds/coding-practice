@@ -24,21 +24,21 @@ int readNCharacters(FILE *fp, char* buffer, int n) {
 char readBuffer[50];
 
 int main() {
-    puts("Starting ...");
     FILE *fp;
     fp = fopen("input.txt", "r");
     if (fp == NULL)
         exit(EXIT_FAILURE);
 
+    resetCounts(12);
     readNCharacters(fp, readBuffer, CHARS_PER_LINE);
     while (readBuffer[0] != 0) {
         int value = readIntFromTextLine(readBuffer, CHARS_PER_LINE);
-        printf(" - %s - %i\r\n", readBuffer, value);
+        performCount(value);
         readNCharacters(fp, readBuffer, NEWLINE_LENGTH);
         readNCharacters(fp, readBuffer, CHARS_PER_LINE);
     }
-
+    printf("Power consumption is %i\n", getPowerConsumption());
+    cleanUp();
     fclose(fp);
-    puts("... done!");
     return EXIT_SUCCESS;
 }
